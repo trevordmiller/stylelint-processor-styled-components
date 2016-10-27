@@ -22,7 +22,7 @@ const getName = (expression) => {
 
   // Multi line string passed in
   // TODO Fix the indentation here to not be hardcoded
-  if (expression.loc) return new Array(expression.loc.end.line - expression.loc.start.line + 1).join('a\n  ')
+  if (expression.loc) return new Array(expression.loc.end.line - expression.loc.start.line + 1).join('a\n')
   return undefined
 }
 
