@@ -8,12 +8,22 @@ const isTaggedTemplateLiteral = (node) => node.type === 'TaggedTemplateExpressio
  */
 const hasInterpolations = (node) => !node.quasi.quasis[0].tail
 
+const getName = (expression) => {
+  if (expression.name) return expression.name.substr(0, expression.name.length - 1)
+
+  if (expression.loc && expression.loc.start.line === expression.loc.end.line) return new Array(expression.loc.end.column - expression.loc.start.column).join('a')
+
+  return undefined
+}
+
 /**
  * Merges the interpolations in a parsed tagged template literals with the strings
+ *
+ * TODO Fix undefined expression.name
  */
 const interleave = (quasis, expressions) => (
   expressions.reduce((prev, expression, index) => (
-    prev.concat(`$${expression.name}`, quasis[index + 1].value.raw)
+    prev.concat(`/*${getName(expression)}*/`, quasis[index + 1].value.raw)
   ), [quasis[0].value.raw]).join('')
 )
 

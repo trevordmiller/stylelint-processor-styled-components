@@ -41,6 +41,12 @@ const Box3 = styled(Box2)`
   background: blue;
 `
 
+const Box4 = styled.div`
+  display: block;
+  color: ${'blue'};
+  background: blue;
+`
+
 // Multiline
 const Button4 = styled.button`
   display: block;

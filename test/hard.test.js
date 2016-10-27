@@ -25,6 +25,8 @@ describe('hard', () => {
       data = result
       done()
     }).catch((err) => {
+      console.log('ERROR')
+      console.log(err)
       data = err
       done()
     })
