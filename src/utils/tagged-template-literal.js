@@ -8,11 +8,21 @@ const isTaggedTemplateLiteral = (node) => node.type === 'TaggedTemplateExpressio
  */
 const hasInterpolations = (node) => !node.quasi.quasis[0].tail
 
+/**
+ * Get expression name
+ *
+ * Returns either the variable name or something that has the same length as the interpolation
+ */
 const getName = (expression) => {
+  // Variable passed in
   if (expression.name) return expression.name.substr(0, expression.name.length - 1)
 
+  // Single line string passed in
   if (expression.loc && expression.loc.start.line === expression.loc.end.line) return new Array(expression.loc.end.column - expression.loc.start.column).join('a')
 
+  // Multi line string passed in
+  // TODO Fix the indentation here to not be hardcoded
+  if (expression.loc) return new Array(expression.loc.end.line - expression.loc.start.line + 1).join('a\n  ')
   return undefined
 }
 
